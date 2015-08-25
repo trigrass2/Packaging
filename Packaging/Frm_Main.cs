@@ -925,6 +925,7 @@ namespace Packaging
         }
 
         //IO
+        //IO 配置界面
         private void BI_IOconfig_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_IOConfig());

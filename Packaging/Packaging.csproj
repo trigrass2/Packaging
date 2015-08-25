@@ -179,11 +179,11 @@
     <Compile Include="Batch_DeleteTraj.Designer.cs">
       <DependentUpon>Batch_DeleteTraj.cs</DependentUpon>
     </Compile>
-    <Compile Include="Edit_Modbus.cs">
+    <Compile Include="Edit_IOMess.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Edit_Modbus.Designer.cs">
-      <DependentUpon>Edit_Modbus.cs</DependentUpon>
+    <Compile Include="Edit_IOMess.Designer.cs">
+      <DependentUpon>Edit_IOMess.cs</DependentUpon>
     </Compile>
     <Compile Include="Edit_HomeTcp.cs">
       <SubType>Form</SubType>
@@ -220,6 +220,12 @@
     </Compile>
     <Compile Include="Frm_IOConfig.Designer.cs">
       <DependentUpon>Frm_IOConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Modbus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Modbus.designer.cs">
+      <DependentUpon>Frm_Modbus.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_OnlineConfig.cs">
       <SubType>Form</SubType>
@@ -430,8 +436,8 @@
     <EmbeddedResource Include="Batch_DeleteTraj.resx">
       <DependentUpon>Batch_DeleteTraj.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Edit_Modbus.resx">
-      <DependentUpon>Edit_Modbus.cs</DependentUpon>
+    <EmbeddedResource Include="Edit_IOMess.resx">
+      <DependentUpon>Edit_IOMess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edit_HomeTcp.resx">
       <DependentUpon>Edit_HomeTcp.cs</DependentUpon>
@@ -477,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Main.resx">
       <DependentUpon>Frm_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Modbus.resx">
+      <DependentUpon>Frm_Modbus.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_OnlineConfig.resx">
       <DependentUpon>Frm_OnlineConfig.cs</DependentUpon>

@@ -1188,6 +1188,7 @@
             // AppParaGroup
             // 
             this.AppParaGroup.Caption = "应用配置";
+            this.AppParaGroup.Expanded = true;
             this.AppParaGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_IOconfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_ActionConfig),
