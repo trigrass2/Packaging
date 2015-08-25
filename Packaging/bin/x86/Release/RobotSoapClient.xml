@@ -1,0 +1,2598 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RobotSoapClient</name>
+    </assembly>
+    <members>
+        <member name="T:RobotKit.SoapClient">
+            <summary>
+            这是一个对于Staubli CS8C Soap服务器通讯的客户端类。通过这个类实现上位机对于机器人CS8C进行监控。 
+            命名空间是 RobotKit   。  
+            里面Movej,MoveC,MoveL指令主要是对六轴机械手臂进行支持。
+            调用这个dll 类的时候，VS,labview一定要在源代码添加配置文件app.config。
+            或者把app.config命名为应用程序名.config和程序放在通一目录下。
+            使用这个dll文件请和RobotVal3.dll一起使用。
+            开发环境 VS2015, 语言是C#.
+            联系方式： y.ye@staubli.com。
+            Lastest Update: 2015.08.05。
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.m_sessionId">
+            <summary>
+            所有属性全部设为private.
+            服务器IP,端口，用户名，密码。获得全局变量应用程序名。调用库名，设置全局变量应用程序名。运动参数等
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapIpaddress">
+            <summary>
+            SoapIp地址
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapPort">
+            <summary>
+            Soap端口,一般是5653
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapUser">
+            <summary>
+            Soap用户名
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapPassword">
+            <summary>
+            Soap密码
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.m_currentRobot">
+            <summary>
+            对应的机器人型号
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.m_ci">
+            <summary>
+            本地化
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.Soapmdesc">
+            <summary>
+            除了点以外的运动参数配置
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.StackCount">
+            <summary>
+            堆栈中的个数
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapGetAppname">
+            <summary>
+            Soap读取全局变量数据的应用程序名（需加载在内存中）
+            格式例如： @"Disk://PcData/PcData.pjx"
+            下位机的Val3版本需要在s7.0以上
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapLibname">
+            <summary>
+            Soap读数据应用程式所调用的库名
+            格式例如： @"PcData"，有的后面需要～，当按下run按钮时启动的程序为~
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SoapSetAppname">
+            <summary>
+            Soap写(设置)全局数据的应用程序名（需加载在内存中）
+            格式例如： @"Disk://PcData/PcData.pjx"
+            应用程序在里面分为三种，存在在Cell中的程序（可以多个），在控制器内存中进行加载了的应用程序（可以多个），运行中的应用程序（主程序只有一个）
+            </summary>
+        </member>
+        <member name="F:RobotKit.SoapClient.SpeedRate">
+            <summary>
+            Soap会话ID
+            一般是8位，从10000000到99999999
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.#ctor">
+            <summary>
+             Soap客户端类的构造函数。
+             默认IP是127.0.0.1，用于上位机与本电脑上的CS8C模拟器进行通讯
+            默认端口是5653  用户名默认是maintenance  密码是spec_cal
+             作用:一般用于和模拟器一起测试使用。
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.#ctor(System.String)">
+            <summary>
+              Soap客户端类的构造函数。
+              需要设置CS8C的IP参数。
+              默认端口是5653  用户名默认是maintenance  密码是spec_cal
+            </summary>
+            <param name="address">服务器IP</param>
+        </member>
+        <member name="M:RobotKit.SoapClient.#ctor(System.String,System.String)">
+            <summary>
+              Soap客户端类的构造函数。参数为服务器IP和服务器端口。
+              密码默认是 maintenance spec_cal
+            </summary>
+            <param name="address">服务器IP,例如：127.0.0.1</param>
+            <param name="port">服务器端口，一般为5653</param>
+        </member>
+        <member name="M:RobotKit.SoapClient.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+             Soap客户端类基本构造函数
+            Soap类的构造函数。里面有4个参数。服务器端口，IP，用户名，密码。通过这个函数来实例化SOAP客户端。
+            其中获得globeldata的应用程序默认为 @"Disk://DataBase/DataBase.pjx"
+            设置全局变量的应用程序默认为 @"Disk://LasMAN/LasMAN.pjx"
+            </summary>
+            <param name="address">服务器IP,例如192.168.0.254</param>
+            <param name="port">服务器端口。这个一般默认是5653</param>
+            <param name="user">用户名，一般使用maintenance</param>
+            <param name="password">用户密码:maintenance对应的密码一般是spec_cal</param>
+        </member>
+        <member name="M:RobotKit.SoapClient.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+              Soap客户端类类的构造函数。对于类的参数完全定制。
+            里面有7个参数。服务器端口，IP，用户名，密码。设置全局变量的应用程序名，
+            获得全局变量的应用程序名，调用的库名。通过这个函数来实例化SOAP客户端。
+            </summary>
+            <param name="address">服务器IP</param>
+            <param name="port">服务器端口</param>
+            <param name="user">用户名</param>
+            <param name="password">密码</param>
+            <param name="Libname">设置库里面全局变量里面应用程序所调用的库名。
+            只能对应用程序里面调用的库里面的public属性全局变量修改</param>
+            <param name="Appname">获得应用程序的全局变量里面的值。不论private还是public都可获得</param>
+            <param name="setAppname">设置应用程序里面应用程序名</param>
+        </member>
+        <member name="M:RobotKit.SoapClient.PingNet">
+            <summary>
+            判断网络是否连通
+            时间延迟超过100毫秒就判定不通
+            如果SOAP服务器死掉，这个也可以用来测试是否通
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SoapServerDead">
+            <summary>
+            判断soap服务器是否死掉。
+            如果返回为false.可以ping通的话，需要重启cs8c 
+            由于soap服务器的优先级比较低，在一些多任务程序中，soap经常会timeout而导致报错
+            soap服务器需要正常工作，一般要求进程比较少。
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetRobot">
+            <summary>
+            获得SOAP服务器端机器人信息。
+            一般一台soap服务器端只有一个机器人信息。因为soap服务端是安装在cs8c控制器上
+            robotindex一般默认为0;
+            </summary>
+            <returns>机器人相关信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Reset">
+            <summary>
+            这个是重新登录函数，如果登录不成功，会返回报错信息
+            </summary>
+            <returns>如果登录不成功，会返回报错信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Ping">
+            <summary>
+            对soap服务器进行ping服务，检查网络通畅与soap服务器是否正常工作。
+            函数占用带宽较大，一般不常用！
+            PONG 是法文的ping
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.Login">
+            <summary>
+            Login这个函数是重点函数。每次通过这个函数来获得会话ID。一般ID为几万。
+            每连接一次服务器就分配一个会话ID。
+            函数里面包含了proxy函数。
+            这个函数会尝试3次
+            登录失败的原因，网络连接或者soap服务器死掉
+            </summary>
+            <returns>登录是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Proxy">
+            <summary>
+            soap服务器里面有几个代理类。每一个代理类具有不同的调用方法。详情见参照Remote access to the CS8.pdf
+            7.0以上版本有四个代理类，6.8只有三个代理类，只能对全局公有数据读操作
+            </summary>
+            <returns>如果m_cs8ServerV0 == null或者查找不到入口，函数出现异常则出现false,否则为true</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Logout">
+            <summary>
+            退出登录SOAP服务器
+            </summary>
+            <returns>退出或者没有登录的话。返回true.函数出现异常，返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Logout(System.Int32)">
+            <summary>
+            退出登录SOAP服务器
+            </summary>
+            <param name="session">会话ID</param>
+            <returns>退出或者没有登录的话。返回true.函数出现异常，返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LogoutAll(System.Int32[])">
+            <summary>
+            登出所有会话ID
+            </summary>
+            <param name="sessionid">会话ID列表</param>
+            <returns>登出是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LogoutAll">
+            <summary>
+            登出所有会话ID
+            </summary>
+            <returns>判断是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppname(System.String)">
+            <summary>
+            设置控制器中应用程序名来设置获得全局公有变量的应用程序。
+            </summary>
+            <param name="Appname">设置全局变量名</param>
+            <returns>如果应用没有加载在内存中，则返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAllAppname(System.Boolean[]@)">
+            <summary>
+            ！！！还需测试！！！
+            获得所有加载在内存中的应用的名称
+            loaded没有意义，在cell中的应用没有加载，不会出现在返回值中
+            返回是完整的路径名：Disk://TestSoap/TestSoap.pjx
+            无法获取usrapp中所有的程序名（不管有没有加载到内存中）。如需要获取，通过ftp协议来实现
+            </summary>
+            <param name="Loaded">是否已经在内存中进行加载</param>
+            <returns>返回Cell中加载在内存中的应用</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAllAppname">
+             <summary>
+            获得所有加载在内存中的应用的名称
+             在cell中的应用没有加载，不会出现在返回值中
+             </summary>
+             <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetProjectxml">
+            <summary>
+            这个是把CS8C里面运行的工程保存为XML格式。
+            作用查看CS8C内部运行的应用程序名。
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetProjectxml(System.String)">
+            <summary>
+            获得应用程序名的XML文档
+            应用程序名必须先加载到内存中
+            </summary>
+            <param name="Appname">应用程序名(完整路径)，@"Disk://LasMAN/LasMAN.pjx"</param>
+            <returns>如果获得成功，则返回为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ExistAppname(System.String)">
+            <summary>
+            查看应用程序是否已加载在内存中
+            </summary>
+            <param name="Appname">需要查看的应用程序完整名:格式是Disk://TestSoap/TestSoap.pjx</param>
+            <returns>返回结果</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.getCS8Compatibility">
+            <summary>
+            获得CS8C匹配选项，一般返回值为7
+            说明书中未提及函数
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetControllerInformation">
+            <summary>
+            获得CS8C控制器信息
+            </summary>
+            <returns>控制器信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetControllerVersion">
+            <summary>
+            获得下位机Val3的版本号
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetArmType">
+            <summary>
+            获得机械手臂的类型
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetRobotInfor">
+            <summary>
+            机器人的基本信息
+            1.手臂类型
+            2.安装方式
+            3.tuning
+            4.
+            </summary>
+            <returns>机器人基本信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetDH">
+            <summary>
+            获得机器人的DH参数
+            </summary>
+            <returns>机器人DH参数</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointPos">
+            <summary>
+            这个是获得实时机器人的joint点。这个点是不需要经过换算的。
+            根据这个点通过坐标转换可以得到机器人的直角坐标系的点。
+            </summary>
+            <returns>返回值为机器人joint点</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointCartPos(System.Double[],System.Double[])">
+            <summary>
+             读取机器人六个轴的角度和工具尖顶的世界坐标系。此是具有frame的.
+             只针对六轴机器人
+            </summary>
+            <param name="tool">工具坐标</param>
+            <param name="frame">偏移坐标</param>
+            <returns>返回当前机器人6个轴的角度和工具尖顶的世界坐标.前6个是角度，后6个为坐标。如果函数发生异常，则为NULL</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointCartPos(System.Double[],System.Double[],System.Double[]@)">
+            <summary>
+            其中Joint有时会读出全是0，不是很稳定
+            获取机器人笛卡尔坐标系和关节值
+            </summary>
+            <param name="tool">工具值</param>
+            <param name="frame">用户坐标系</param>
+            <param name="Joint">关节值</param>
+            <returns>笛卡尔坐标值</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointCartPos">
+            <summary>
+            获取机器人关节和笛卡尔坐标系
+            其中Joint有时会读出全是0，不是很稳定
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetCartesianPos(System.Double[],System.Double[])">
+            <summary>
+             读取工具尖顶的世界坐标系。此是具有frame的
+             其中Joint有时会读出全是0，不是很稳定
+            </summary>
+            <param name="tool">工具坐标</param>
+            <param name="frame">偏移坐标</param>
+            <returns>返回当前机器人工具尖顶的世界坐标，如果函数发生异常，则为NULL</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetCartesianPos">
+            <summary>
+            读取机器人法兰盘的世界坐标
+             其中Joint有时会读出全是0，不是很稳定
+            </summary>
+            <returns>返回当前机器人法兰盘的世界坐标，如果函数发生异常，则为NULL</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetCartesianPos(System.Double[])">
+            <summary>
+            读取机器人法兰盘的世界坐标。其实frame为world
+            </summary>
+            <returns>返回当前机器人尖顶的世界坐标，如果函数发生异常，则为NULL</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetRobotStatus">
+            <summary>
+            获取机器人状态
+            [0].关节值
+            [1].笛卡尔坐标
+            [2]机器人是否静止
+            [3]堆栈是否为空
+            [4]本地控制模式
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsStatckEmpty">
+            <summary>
+            运动堆栈是否空
+            </summary>
+            <returns>出现异常时，也是返回为False</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsRobotStatic">
+            <summary>
+            判断机器人是否处在静止状态
+            </summary>
+            <returns>异常时也会返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointMax">
+            <summary>
+            获得机器人软件Joint最大限位 
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointMin">
+            <summary>
+            获得Joint点的最小值
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetJointRange">
+            <summary>
+            获得六个轴运动的最大角度与最小角度
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Joint2Point(System.Double[])">
+            <summary>
+            机械手臂Joint值转换为point
+            jointtopoint的使用
+            </summary>
+            <param name="joint">需要进行转换的六个关节值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Point2Joint(System.Double[])">
+            <summary>
+            由法兰盘中心点的世界坐标转换为六轴六轴角度
+            </summary>
+            <param name="point">法兰盘的中心点的世界坐标</param>
+            <returns>六轴的角度，如果报错则返回null</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Point2Joint(System.Double[],System.Double[],System.Int32)">
+            <summary>
+            由法兰盘中心点的世界坐标转换为六轴六轴角度
+            </summary>
+            <param name="point">法兰盘的中心点的世界坐标</param>
+            <param name="nearjoint">获得最接近的六轴坐标</param>
+            <param name="ArmStatus">姿态</param>
+            <returns>六轴的角度</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ReadIO(System.String[])">
+            <summary>
+            读取读取控制面板->输入输出里面IO信息
+            消耗时间比较大，一般不推荐和其他函数一起使用
+            如果在多线程中使用此函数，那么其他soap要利用读写锁来实现分离
+            
+            否则容易Soap报错
+            </summary>
+            <param name="Ioname">需要读取IO名</param>
+            <returns>返回为IO的信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ReadIOValue(System.String[])">
+            <summary>
+            读取控制面板->输入输出多个IO里面的状态
+            </summary>
+            <param name="Ioname">IO名称列表</param>
+            <returns>返回IO名称列表状态</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ReadIO(System.String)">
+            <summary>
+            读取控制面板->输入输出单个IO里面的状态
+            </summary>
+            <param name="Ioname">IO的名称</param>
+            <returns>状态值</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ReadIOValue(System.String)">
+            <summary>
+            读取单个控制面板->输入输出里面的IO值
+            </summary>
+            <param name="Ioname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ReadIOlock(System.String)">
+            <summary>
+            读取IO锁的状态,
+            </summary>
+            <param name="Ioname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockAllIO">
+            <summary>
+            强制所有控制面板中的IO，
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.UnlockAllIO">
+            <summary>
+            解锁所有IO
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockIO(System.String[],System.Nullable{System.Double}[])">
+            <summary>
+            强制多个控制面板->输入输出里面的IO
+            </summary>
+            <param name="Ioname">IO名称</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockIO(System.String[])">
+            <summary>
+            解锁控制面板->输入输出里面的IO
+            </summary>
+            <param name="Ioname">IO的名称列表</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockIO(System.String,System.Double)">
+             <summary>
+              请用maintanence spec_cal进行登录
+            对控制面板->输入输出里面的IO进行锁定，一般用作模拟量IO
+             </summary>
+             <param name="Ioname">IO名称</param>
+             <param name="Value">IO值</param>
+             <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockIO(System.String,System.Boolean)">
+             <summary>
+              请用maintanence spec_cal进行登录
+            对控制面板->输入输出里面的IO进行强制，一般用作数字量IO
+             </summary>
+             <param name="Ioname"></param>
+             <param name="Value"></param>
+             <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.LockIO(System.String)">
+            <summary>
+            控制面板->输入输出里面的IO进行解锁
+            </summary>
+            <param name="Ioname"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.UnlockIO(System.String[])">
+            <summary>
+            控制面板->输入输出IO列表解锁，
+            </summary>
+            <param name="adIoname">控制面板->输入输出里面的IO</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.UnlockIO(System.String)">
+            <summary>
+            取消强制或者说解锁
+            </summary>
+            <param name="Ioname">控制面板->输入输出里面的IO名称</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.WriteIO(System.String[],System.Double[])">
+            <summary>
+            对多个控制面板->输入输出里面的IO进行操作
+            </summary>
+            <param name="Ioname">IO的名称</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.WriteIO(System.String,System.Double)">
+            <summary>
+            对控制面板->输入输出里面的IO进行操作
+            远程需要使用setappaio/setappdio函数
+            </summary>
+            <param name="Ioname"></param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.WriteIO(System.String,System.Boolean)">
+            <summary>
+            对控制面板->输入输出里面的IO进行写操作
+            </summary>
+            <param name="Ioname"></param>
+            <param name="Res"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetIOList">
+            <summary>
+            获取控制面板->输入输出里面的IO，不能获取控制器状态里面的输入输出IO
+            把所有的IO保存在XML文档并且返回字节流
+            </summary>
+            <returns>返回XML格式字节流</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetIOListXML">
+            <summary>
+            获取控制面板->输入输出里面的IO，不能获取控制器状态里面的输入输出IO
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAppdata">
+            <summary>
+            获得应用程序的全局数据（包括所有公共与私有变量）
+            应用程序必须设置为自动加载
+            </summary>
+            <returns>返回为字节流形式的globaldata信息</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAppdata(System.String)">
+            <summary>
+            把获得获得应用程序的全局数据（包括所有公共与私有变量）变成一个文件
+            </summary>
+            <param name="FileName"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAppdataFile(System.String)">
+            <summary>
+            把文件保存在当前目录下
+            在连接库默认的所在目录下
+            </summary>
+            <param name="FileName"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetAppdataFile">
+            <summary>
+            保存为默认文件名为SoapAppData.xml的文件
+            在连接库默认的所在目录下
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ExecVal3(System.String,System.String)">
+             <summary>
+             Soap执行Val3指令
+            用法之一:对下位机全局变量进行设值
+             重点函数
+             最容易出现问题，当设置的appname在加载或者没有加载。解决方法在打开应用程序中模式设置为自动加载，并且加载完成以后不能关掉
+             时间比较长
+             </summary>
+             <param name="Appname">在内存中加载的应用程序名</param>
+             <param name="Val3Line">Val3指令行</param>
+             <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ExecVal3(System.String)">
+            <summary>
+            Soap执行Val3指令,是对下位机进行设置值的重要函数
+            </summary>
+            <param name="Val3Line">Val3指令行</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String,System.Double)">
+            <summary>
+            这个是用来设置应用程序里面全局变量名称，不一定是公共变量，私有变量也可以。
+            </summary>
+            <param name="Appname">应用程序名。</param>
+            <param name="Varname">public属性globaldata的名字</param>
+            <param name="Value">globaldata的值</param>
+            <returns>如果设置成功，则返回值为true.如果设置失败则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.Double)">
+            <summary>
+            这个是对double类型的public属性的globaldata值进行赋值的函数。
+            </summary>
+            <param name="Varname">全局变量的名字</param>
+            <param name="Value">设置的变量值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String,System.Int32)">
+            <summary>
+            设置加载在内存中Appname一个INT型的全局数据
+            </summary>
+            <param name="Appname">需要设置的加载在内存中应用程序名</param>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.Int32)">
+            <summary>
+            设置加载在内存中Appname一个INT型的全局数据
+            </summary>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String[])">
+            <summary>
+            设置加载在内存中Appname一个string[]型的全局数据
+            </summary>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String)">
+            <summary>
+            设置加载在内存中Appname应用程序一个字符串型的全局数据
+            </summary>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String,System.String[])">
+             <summary>
+            给设置加载在内存中Appname应用程序全局变量字符串数组进行赋值
+             </summary>
+             <param name="Appname">应用程序名,应用程序必须加载在内存中</param>
+             <param name="Varname">全局字符串类型的变量名</param>
+             <param name="Value">需要设置值</param>
+             <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String,System.String)">
+             <summary>
+            给设置加载在内存中Appname应用程序全局变量给字符串进行赋值
+             </summary>
+             <param name="Appname">应用程序名,应用程序必须加载在内存中</param>
+             <param name="Varname">全局字符串类型的变量名</param>
+             <param name="Value">需要设置值</param>
+             <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppTrsf(System.String,System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量对trsf变量进行设值
+            </summary>
+            <param name="Appname">加载在内存中的应用程序名</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppTrsf(System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量对trsf变量进行赋值
+            </summary>
+            <param name="Varname">变量名</param>
+            <param name="Value">值，一般是double[]的个数为6的数组</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppFrame(System.String,System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量对frame的trsf部分进行赋值
+            </summary>
+            <param name="Appname">应用程序名</param>
+            <param name="Varname">frame类型变量名</param>
+            <param name="Value">trsf的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppFrame(System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量对frame的trsf部分进行赋值
+            应用程序使用SoapSetAppname
+            </summary>
+            <param name="Varname">frame的trsf变量名</param>
+            <param name="Value">值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppTool(System.String,System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量设置tool变量值
+            </summary>
+            <param name="Appname">应用程序名</param>
+            <param name="Varname">变量名</param>
+            <param name="Value">变量值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppTool(System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量中的tool类型值
+            </summary>
+            <param name="Varname">变量名</param>
+            <param name="Value">值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppCart(System.String,System.String,System.Double[])">
+            <summary>
+            给设置加载在内存中Appname应用程序全局变量对坐标系变量进行设值
+            </summary>
+            <param name="Appname">加载在内存中的应用程序名</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppCart(System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序的全局坐标系变量进行设值
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppJoint(System.String,System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序的全局关节点变量进行设值
+            </summary>
+            <param name="Appname">加载在内存中的应用程序名</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppJoint(System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序的全局坐标系变量进行设值
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.Double[])">
+            <summary>
+            对应用程序中的全局变量数值类型数组进行设值
+            num类型，应用程序必须加载在内存中
+            </summary>
+            <param name="Varname">变量名称</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.String,System.Boolean)">
+            <summary>
+            设置全局变量中的布尔类型变量,数字IO设值
+            </summary>
+            <param name="Appname">应用程序名，应用程序必须加载在内存中</param>
+            <param name="Varname">全局布尔变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppdata(System.String,System.Boolean)">
+            <summary>
+            设置全局变量中的布尔类型变量,数字IO设值
+            </summary>
+            <param name="Varname">全局布尔类型变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppDIO(System.String,System.String,System.Boolean)">
+            <summary>
+            设置加载在内存中Appname应用程序全局变量全局变量中的数字IO设值
+            也可以通过writeio来直接对物理IO赋值
+            </summary>
+            <param name="Appname">应用程序名，应用程序必须加载在内存中</param>
+            <param name="Varname">全局布尔类型变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppDIOS(System.String,System.String[],System.Boolean)">
+            <summary>
+            设置加载在内存中Appname应用程序全局变量中的数字IO设值
+            也可以通过writeio来直接对物理IO赋值
+            </summary>
+            <param name="Varname">全局布尔类型变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppDIO(System.String,System.Boolean)">
+            <summary>
+            设置加载在内存中Appname应用程序全局变量数字IO设值
+            也可以通过writeio来直接对物理IO赋值
+            设置全局变量
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppAIO(System.String,System.String,System.Double)">
+            <summary>
+            设置加载在内存中Appname应用程序全局变量的模拟IO变量赋值
+            也可以通过writeio来直接对物理IO赋值
+            </summary>
+            <param name="Appname">应用程序名，应用程序必须加载在内存中</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppAIO(System.String,System.Double)">
+            <summary>
+            设置全局变量中的模拟量IO值
+            也可以通过writeio来直接对物理IO赋值
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppSIO(System.String,System.String,System.Double)">
+            <summary>
+            设置全局变量中的SIO值
+            也可以通过writeio来直接对物理IO赋值
+            </summary>
+            <param name="Appname">应用程序名(完整路径)</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppSIO(System.String,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppRxCfg(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置姿态参数
+            </summary>
+            <param name="Appname">应用程序名(完整路径)</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Shoulder"></param>
+            <param name="Elbow"></param>
+            <param name="Wrist"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppRxCfg(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            设置姿态参数
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Shoulder"></param>
+            <param name="Elbow"></param>
+            <param name="Wrist"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppRxCfg(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppRsCfg(System.String,System.String,System.Int32)">
+            <summary>
+            设置姿态参数
+            </summary>
+            <param name="Appname">应用程序名(完整路径)</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Shoulder"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppRsCfg(System.String,System.Int32)">
+            <summary>
+            设置姿态参数
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Shoulder"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppMdesc(System.String,System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Double)">
+            <summary>
+            设置运动描述符参数
+            </summary>
+            <param name="Appname">应用程序名(完整路径)</param>
+            <param name="Varname">全局变量名</param>
+            <param name="Accel">加速度</param>
+            <param name="Vel">速度</param>
+            <param name="Decel">减速度</param>
+            <param name="Tvel">末端姿态点直线速度</param>
+            <param name="Rvel">末端姿态点旋转速度</param>
+            <param name="BlendType">0"off", 1"joint", 2"Cartesian"</param>
+            <param name="Leave">离开距离</param>
+            <param name="Reach">到达距离</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppMdesc(System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Double)">
+            <summary>
+            设置运动描述符参数
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Accel">加速度</param>
+            <param name="Vel">速度</param>
+            <param name="Decel">减速度</param>
+            <param name="Tvel">末端姿态点直线速度</param>
+            <param name="Rvel">末端姿态点旋转速度</param>
+            <param name="BlendType">0"off", 1"joint", 2"Cartesian"</param>
+            <param name="Leave">离开距离</param>
+            <param name="Reach">到达距离</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppMdesc(System.String,System.String,System.Double)">
+            <summary>
+            对运动参数的单独参数进行设置
+            </summary>
+            <param name="Varname">运动参数名</param>
+            <param name="VarType">运动参数里的个别名</param>
+            <param name="Value">设置值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String,System.Double)">
+            <summary>
+            这个是用来设置应用程序里面调用库的public属性的globaldata的值。
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">应用程序名。</param>
+            <param name="Libname">应用程序里面调用库的名字</param>
+            <param name="globadataname">public属性globaldata的名字</param>
+            <param name="Value">globaldata的值</param>
+            <returns>如果设置成功，则返回值为true.如果设置失败则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.Double)">
+            <summary>
+            这个是用来设置应用程序里面调用库的public属性的globaldata的值。
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序里面调用库的名字</param>
+            <param name="Varname">public属性globaldata的名字</param>
+            <param name="Value">globaldata的值</param>
+            <returns>如果设置成功，则返回值为true.如果设置失败则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.Double)">
+            <summary>
+            这个是用来设置应用程序里面调用库的public属性的globaldata的值。
+            </summary>
+            <param name="Varname">public属性globaldata的名字</param>
+            <param name="Value">globaldata的值</param>
+            <returns>如果设置成功，则返回值为true.如果设置失败则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            设置加载在内存中的应用程序名的全局变量的NUM类型值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">应用程序名。</param>
+            <param name="Libname">应用程序里面调用库的名字</param>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.Int32)">
+            <summary>
+            设置加载在内存中的应用程序名的全局变量的NUM类型值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序里面调用库的名字</param>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.Int32)">
+            <summary>
+            设置加载在内存中的应用程序名的全局变量的NUM类型值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Varname">需要设置的参数名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String,System.String)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的字符串进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">在内存中加载了的应用程序名</param>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String[])">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的字符串进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的字符串进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的字符串进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String[])">
+            <summary>
+            这个是对字符串数组进行赋值。其中字符串数组的元素个数没有限定。
+            </summary>
+            <param name="Varname">需要赋值的globaldata名</param>
+            <param name="Value">字符串数组</param>
+            <returns>如果设置成功，则为true.否则为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String,System.String[])">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的字符串进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">在内存中加载了的应用程序名</param>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.Double[],System.Int32)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的num数组进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <param name="length">数组大小</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的布尔值进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">应用程序名</param>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的布尔值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.String,System.Boolean)">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的布尔值进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的布尔值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibdata(System.String,System.Boolean)">
+            <summary>
+            设置下位机数据
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Varname">全局变量名</param>
+            <param name="Value">全局变量设定值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibCart(System.String,System.String,System.String,System.Double[])">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的cart进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Appname">应用程序名</param>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的布尔值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibCart(System.String,System.String,System.Double[])">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的cart进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Libname">应用程序所引用的库名</param>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的布尔值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibCart(System.String,System.Double[])">
+            <summary>
+            对内存中的应用程序中所引用的库的全局公共变量中的cart进行设值
+            可以直接使用setappdata()函数
+            </summary>
+            <param name="Varname">库中的全局公共字符变量</param>
+            <param name="Value">所需要设置的布尔值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibJoint(System.String,System.String,System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序引用库的Joint值进行设置
+            </summary>
+            <param name="Appname">加载在内存中的应用程序</param>
+            <param name="Libname">所被引用的库名</param>
+            <param name="Varname">库的全局公共变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibJoint(System.String,System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序引用库的Joint值进行设置，应用程序名为默认
+            </summary>
+            <param name="Libname">所被引用的库名</param>
+            <param name="Varname">库的全局公共变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetLibJoint(System.String,System.Double[])">
+            <summary>
+            对加载在内存中的应用程序引用库的Joint值进行设置，应用程序名和所引用的库名为默认
+            </summary>
+            <param name="Varname">库的全局公共变量名</param>
+            <param name="Value">需要设置的值</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetTasklist">
+            <summary>
+            这个获得控制器里面所有task名字的函数
+            </summary>
+            <returns>返回所有task的名字。如果函数异常或者没有则返回null</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsExistTask(System.String)">
+            <summary>
+            判断task是否存在的函数。
+            注意：这个函数不判断task的状态。不论是stoped，还是running
+            </summary>
+            <param name="Taskname">task的名字。例如HMIMain</param>
+            <returns>如果task存在则返回为true.如果函数异常或者不存在task为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetTaskinfor(System.String)">
+            <summary>
+            获取任务信息
+            </summary>
+            <param name="Taskname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SuspendTask(System.String)">
+            <summary>
+            暂停task的函数
+            </summary>
+            <param name="Taskname">需要暂停的任务的名称</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ResumeTask(System.String)">
+            <summary>
+            重启task的函数
+            </summary>
+            <param name="Taskname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.KillTask(System.String)">
+            <summary>
+            终止task的函数
+            </summary>
+            <param name="Taskname">任务名称</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsTaskRun(System.String)">
+            <summary>
+            判断任务是否是在运行
+            </summary>
+            <param name="Taskname">任务名</param>
+            <returns>任务是否在运行</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsMotionOver(System.Double[],System.Double[],System.Double[],System.Double)">
+            <summary>
+            检查运行是否完成
+            </summary>
+            <param name="Pos"></param>
+            <param name="Frame"></param>
+            <param name="tool"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsMotionOver(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            检查运行是否完成
+            </summary>
+            <param name="Pos"></param>
+            <param name="Frame"></param>
+            <param name="tool"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsMotionStackEmpty">
+            <summary>
+            运动堆栈清空
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Poweron">
+            <summary>
+            手臂上电
+            </summary>
+            <returns>成功为true,失败为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Poweroff">
+            <summary>
+            手臂下电
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.PowerAction(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="action"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ResetMotion">
+            <summary>
+            运动堆栈清空。
+            </summary>
+            <returns>成功为true,失败为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.StopMotion">
+            <summary>
+            停止运动
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.RestartMotion">
+            <summary>
+            重新运动
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetMotionPara(System.Double,System.Double)">
+            <summary>
+            运动参数初始化
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJoint(System.Double[])">
+            <summary>
+            通过Joint方式设置机器人运动
+            </summary>
+            <param name="jointpos"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc,System.Boolean)">
+            <summary>
+            MOVEJ的两种运动形式，一种是直接走JOINT点，一种是走Point点
+            </summary>
+            <param name="jointcart">数据</param>
+            <param name="motionDesc">运动参数</param>
+            <param name="Cart"></param>
+            <returns>是否正确返回值</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double,System.Boolean)">
+            <summary>
+            机械手臂走关节点或者坐标点，点到点
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6，Cart x,y,z,rx,ry,rz</param>
+            <param name="Speed">机械手臂末端的线速度</param>
+            <param name="Cart">通过movej走关节点还是坐标点</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double)">
+            <summary>
+            机械手臂走关节点
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6</param>
+            <param name="Speed">机械手臂末端的线速度</param>
+            <param name="acc">机械手臂的马达的加速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double,System.Double,System.Boolean)">
+            <summary>
+            机械手臂走关节点或者坐标点，点到点
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6，Cart x,y,z,rx,ry,rz</param>
+            <param name="Speed">机械手臂末端的线速度</param>
+            <param name="acc">机械手臂的马达的加速度</param>
+            <param name="Cart">通过movej走关节点还是坐标点</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double,System.Double)">
+            <summary>
+            机械手臂走关节
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6</param>
+            <param name="Speed">机械手臂末端的线速度</param>
+            <param name="acc">机械手臂的马达的加速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Boolean)">
+             <summary>
+            利用MOVEJ来控制运动
+             </summary>
+             <param name="jointpos">是JOINT点参数</param>
+             <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[])">
+            <summary>
+            机械手臂走关节
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            机械手臂走关节
+            </summary>
+            <param name="joint">目标关节点，为6个值，j1,j2,j3,j4,j5,j6</param>
+            <param name="Tool">工具值</param>
+            <param name="frame">用户坐标系</param>
+            <param name="Vel">机械手臂马达的速度比</param>
+            <param name="Tvel">机械手臂末端的线速度</param>
+            <param name="Rvel">机械手臂末端的旋转速度</param>
+            <param name="Acc">机械手臂的马达的加速度</param>
+            <param name="Dec">机械手臂马达的减速度</param>
+            <param name="blendtype">机械手臂倒角类型</param>
+            <param name="Reach">倒角到达点</param>
+            <param name="leave">倒角离开点</param>
+            <param name="BoxCar">反馈分析的取样频率</param>
+            <param name="absmove">相对运动与绝对运动</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveJ(System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            专门为文本读写而重载
+            </summary>
+            <param name="joint"></param>
+            <param name="Tool"></param>
+            <param name="frame"></param>
+            <param name="Tvel"></param>
+            <param name="Acc"></param>
+            <param name="Blend"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[])">
+            <summary>
+            这个是利用movc指令来运行，参数是两个点
+            </summary>
+            <param name="point1">第一个点</param>
+            <param name="point2">第二个点</param>
+            <returns>返回运动参数。如果函数出现异常，返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc)">
+            <summary>
+            这个是利用movc指令来运行，参数是两个点还一个运动参数。
+            </summary>
+            <param name="point1">第一个点</param>
+            <param name="point2">第二个点</param>
+            <param name="mtdesc">运动参数</param>
+            <returns>返回运动参数。如果函数出现异常，返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],System.Double)">
+            <summary>
+            机械手臂走圆弧
+            </summary>
+            <param name="point1">目标中间点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="point2">目标终点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="speed">机械手臂末端的线速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],System.Double,System.Double)">
+            <summary>
+            机械手臂走圆弧
+            </summary>
+            <param name="point1">目标中间点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="point2">目标终点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="speed">机械手臂末端的线速度</param>
+            <param name="acc">机械手臂的马达的加速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            机械手臂走圆弧
+            </summary>
+            <param name="point1">目标中间点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="point2">目标终点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="Tool">工具值</param>
+            <param name="frame">用户坐标系</param>
+            <param name="Vel">机械手臂马达的速度比</param>
+            <param name="Tvel">机械手臂末端的线速度</param>
+            <param name="Rvel">机械手臂末端的旋转速度</param>
+            <param name="Acc">机械手臂的马达的加速度</param>
+            <param name="Dec">机械手臂马达的减速度</param>
+            <param name="blendtype">机械手臂倒角类型</param>
+            <param name="Reach">倒角到达点</param>
+            <param name="leave">倒角离开点</param>
+            <param name="BoxCar">反馈分析的取样频率</param>
+            <param name="absmove">相对运动与绝对运动</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            机械手臂走圆弧
+            针对lasman软件
+            </summary>
+            <param name="point1">目标中间点，为6个值，x,y,z,rx,ry,rz</param>
+             <param name="point2">目标终点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="Tool">工具值</param>
+            <param name="frame">产品坐标系</param>
+            <param name="Tvel">机械手臂末端的线速度</param>
+            <param name="Acc">机械手臂的马达的加速度</param>
+            <param name="Blend">机械手臂倒角类型</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveC(System.Double[],System.Double[],System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            机械手臂走圆弧
+            针对lasman软件
+            </summary>
+            <param name="point1">目标中间点，为6个值，x,y,z,rx,ry,rz</param>
+             <param name="point2">目标终点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="Tool">工具值</param>
+            <param name="ProductFrame">产品坐标系</param>
+            <param name="Trajframe">路径坐标系</param>
+            <param name="Tvel">机械手臂末端的线速度</param>
+            <param name="Acc">机械手臂的马达的加速度</param>
+            <param name="Blend">机械手臂倒角类型</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[])">
+            <summary>
+            机械手臂走直线
+            </summary>
+            <param name="point">目标点</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc)">
+            <summary>
+            机械手臂走直线
+            </summary>
+            <param name="point">目标点</param>
+            <param name="modesc">速度因子</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            机械手臂走直线
+            </summary>
+            <param name="point">目标点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="tool">工具值</param>
+            <param name="Frame">用户坐标系</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double)">
+            <summary>
+            机械手臂走直线，默认坐标系是世界坐标系，没有工具，速度默认是100
+            </summary>
+            <param name="point">运动目标点</param>
+            <param name="Speed">机械手臂的末端线速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double,System.Double)">
+            <summary>
+            机械手臂走直线，默认坐标系是世界坐标系，没有工具
+            </summary>
+            <param name="point">运动目标点</param>
+            <param name="Speed">机械手臂的末端线速度</param>
+            <param name="acc">机械手臂的加减速度</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            机械手臂走直线，默认坐标系是世界坐标系，没有工具
+            </summary>
+            <param name="point">运动目标点</param>
+            <param name="Speed">机械手臂的末端线速度</param>
+            <param name="acc">机械手臂的加减速度</param>
+            <param name="Fren">反馈采用频率</param>运动
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            机械手臂走直线，默认坐标系是世界坐标系，没有工具
+            </summary>
+            <param name="point">运动目标点</param>
+            <param name="Speed">机械手臂的末端线速度</param>
+            <param name="acc">机械手臂的加减速度</param>
+            <param name="Fren">反馈采用频率</param>运动
+            <param name="AbsoluteMove">绝对运动还是相对</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double,System.Double,System.Double,System.Int32,System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            机械手臂走直线
+            </summary>
+            <param name="point">目标点，为6个值，x,y,z,rx,ry,rz</param>
+            <param name="Tool">工具值</param>
+            <param name="frame">用户坐标系</param>
+            <param name="Vel">机械手臂马达的速度比</param>
+            <param name="Tvel">机械手臂末端的线速度</param>
+            <param name="Rvel">机械手臂末端的旋转速度</param>
+            <param name="Acc">机械手臂的马达的加速度</param>
+            <param name="Dec">机械手臂马达的减速度</param>
+            <param name="blendtype">机械手臂倒角类型</param>
+            <param name="Reach">倒角到达点</param>
+            <param name="leave">倒角离开点</param>
+            <param name="BoxCar">反馈分析的取样频率</param>
+            <param name="absmove">相对运动与绝对运动</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            机械手臂走直线，如果堆栈溢出，不报错
+            </summary>
+            <param name="point">目标点</param>
+            <param name="Tool">工具值，为六个点</param>
+            <param name="frame">坐标系</param>
+            <param name="Tvel">线速度</param>
+            <param name="Acc">加速度与减速度</param>
+            <param name="Blend">倒角</param>
+            <returns>运动成功为true,失败为false,</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double[],System.Double[],System.Double[],System.Double,System.Double,System.Double)">
+            <summary>
+            机械手臂走直线，如果堆栈溢出，不报错
+            </summary>
+            <param name="point">目标点</param>
+            <param name="Tool">工具值，为六个点</param>
+            <param name="ProductFrame">产品坐标系</param>
+            <param name="Trajframe">路径坐标系</param>
+            <param name="Tvel">线速度</param>
+            <param name="Acc">加速度与减速度</param>
+            <param name="Blend">倒角</param>
+            <returns>运动成功为true,失败为false,</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.MoveL(System.Double[],System.Double[],System.Double[],System.Double,System.Double)">
+            <summary>
+            机械手臂走直线，如果堆栈溢出，不报错
+            </summary>
+            <param name="point">目标点</param>
+            <param name="Tool">工具值，为六个点</param>
+            <param name="frame">坐标系</param>
+            <param name="Tvel">线速度</param>
+            <param name="Acc">加速度与减速度</param>
+            <returns>运动成功为true,失败为false,</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsRunOk(System.Double[],System.Double[],System.Double[])">
+            <summary>
+            机械手臂走直线，如果堆栈溢出，不报错
+            </summary>
+            <param name="Point">目标点</param>
+            <param name="Tool">工具值，为六个点</param>
+            <param name="Frame">坐标系</param>
+            <returns>运动成功为true,失败为false,</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetRecord">
+            <summary>
+            获取Record信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetRecord(System.String)">
+            <summary>
+            获取record信息
+            </summary>
+            <param name="ItemName">单个信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetModeWire(System.Boolean)">
+            <summary>
+            模式切换,设置为false,示教盒不能进行模式转换和下电。
+            操作模式与上电，是否是通过外部接线来控制
+            如果是通过外部接线的话，那么示教盒的按钮就不能控制是否上电与模式转换
+            默认为false,不建议使用True。设置为true时会报异常。
+            </summary>
+            <param name="mode"></param>
+            <returns>设置是否成功</returns>
+            函数不可用
+        </member>
+        <member name="M:RobotKit.SoapClient.IsModeWire">
+            <summary>
+            操作模式与上电，是否是通过外部接线来控制
+            如果是通过外部接线的话，那么示教盒的按钮就不能控制是否上电与模式转换
+            默认情况下是false
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Delay(System.String,System.Int32)">
+            <summary>
+            延迟时间，必须内存中载入一个应用程序
+            </summary>
+            <param name="Appname">内存中载入的应用程序名</param>
+            <param name="DelayTimeS">延迟时间的秒数</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Delay(System.Int32)">
+            <summary>
+            延迟时间，必须内存中载入一个应用程序
+            </summary>
+            <param name="DelayTimeS">延迟时间的秒数</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ClearScreen(System.String)">
+            <summary>
+            清屏，相当于执行val3中cls()指令。必须内存中载入一个应用程序
+            </summary>
+            <param name="Appname">内存中载入的应用程序名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.ClearScreen">
+            <summary>
+            清屏，相当于执行val3中cls()指令。必须内存中载入一个应用程序
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.CallFunction(System.String,System.String)">
+            <summary>
+            调用子函数，必须内存中载入一个应用程序
+            </summary>
+            <param name="Appname">内存中载入的应用程序名</param>
+            <param name="FunctionName">调用子函数名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.CallFunction(System.String)">
+            <summary>
+            调用子函数，必须内存中载入一个应用程序
+            </summary>
+            <param name="FunctionName">调用子函数名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.WaitEndMove(System.String)">
+            <summary>
+            下位机执行waitendmove指令，必须内存中载入一个应用程序
+            </summary>
+            <param name="Appname">内存中载入的应用程序名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.WaitEndMove">
+            <summary>
+            下位机执行waitendmove指令，必须内存中载入一个应用程序
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.DisPlayLine(System.String,System.String)">
+            <summary>
+            屏幕显示行，必须内存中载入一个应用程序
+            </summary>
+            <param name="Appname">内存中载入的应用程序名</param>
+            <param name="text">显示文本</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.DisPlayLine(System.String)">
+            <summary>
+            屏幕显示行，必须内存中载入一个应用程序,其中应用程序名默认为SoapGetAppname.
+            </summary>
+            <param name="text">显示文本</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetTitle(System.String,System.String)">
+            <summary>
+            输入屏幕标题，内存中需要载入一个应用程序
+            </summary>
+            <param name="Appname">应用程序名(完整路径)</param>
+            <param name="text">标题名称</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetTitle(System.String)">
+            <summary>
+            输入屏幕标题，内存中需要载入一个应用程序
+            </summary>
+            <param name="text">标题名称</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsPowered(System.String,System.String)">
+            <summary>
+            对含有参数的val3指令的使用,
+            内存中需要载入一个应用程序，还需要一个bool变量
+            </summary>
+            <param name="Appname">内存中载入一个应用程序</param>
+            <param name="BoolPara">应用程序中的bool变量名</param>
+            <returns>操作是否成功，而不是是否上电</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.IsPowered(System.String)">
+            <summary>
+            对含有参数的val3指令的使用,
+            内存中需要载入一个应用程序，还需要一个bool变量
+            </summary>
+            <param name="BoolPara">应用程序中的bool变量名</param>
+            <returns>操作是否成功，而不是是否上电</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.TaskCreate(System.String,System.String)">
+            <summary>
+            建立任务,Taskname是没有参数的函数名
+            </summary>
+            <param name="Taskname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.TaskCreate(System.String)">
+            <summary>
+            函数名
+            </summary>
+            <param name="Taskname"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.TaskCreate">
+            <summary>
+            默认开始函数  start函数
+            
+            </summary>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetboxCar">
+            <summary>
+            设置Boxcar
+            </summary>
+            <returns>操作成功为true,返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetboxCar(System.Int32,System.Int32)">
+            <summary>
+            设置boxcar
+            </summary>
+            <param name="CartFreq">Cart值</param>
+            <param name="JointFreq">Joint值</param>
+            <returns>操作成功为true,返回为false</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.Finalize">
+            <summary>
+            在net架构中是否需要析构函数？
+            添加为析构函数
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.TrsfToFrame(System.Double[])">
+            <summary>
+            把Trsf转换为类中的Frame
+            </summary>
+            <param name="point"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetBoxCar">
+            <summary>
+            进行Addon函数的测试
+            设置boxcar $setBoxcarFreq(10,19)
+            
+            </summary>
+            <param name="FileName"></param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.GetStackFrame(System.String,System.String,System.Int32)">
+            <summary>
+            调试程序
+            </summary>
+            <param name="Appname">被调试程序的名字</param>
+            <param name="Taskname">任务名</param>
+            <param name="Step">运行到第几行</param>
+            <returns>数据</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SetAppChange(System.String)">
+            <summary>
+            把当前修改过的APP保存到硬盘上
+            调试部分
+            </summary>
+            <param name="Appname">被修改的应用程序名</param>
+            <returns>操作是否成功</returns>
+        </member>
+        <member name="M:RobotKit.SoapClient.SubScribeToControllerEvents(System.String,System.Int32)">
+            <summary>
+            ！！！！测试程序，不建议用在程序中
+            </summary>
+            <param name="Url"></param>
+            <param name="Interval"></param>
+        </member>
+        <member name="M:RobotKit.SoapClient.SubScribeToControllerEvents(System.String)">
+            <summary>
+            ！！！！测试程序，不建议用在程序中
+            </summary>
+            <param name="Url"></param>
+        </member>
+        <member name="M:RobotKit.SoapClient.SubScribeToControllerEvents(System.Int32)">
+            <summary>
+            ！！！！测试程序，不建议用在程序中
+            </summary>
+            <param name="Interval"></param>
+        </member>
+        <member name="M:RobotKit.SoapClient.SubScribeToControllerEvents">
+            <summary>
+            ！！！！测试程序，不建议用在程序中
+            </summary>
+        </member>
+        <member name="M:RobotKit.SoapClient.unSubScribeToControllerEvents">
+            <summary>
+            ！！！！测试程序，不建议用在程序中
+            </summary>
+        </member>
+        <member name="T:RobotKit.SoapInstance">
+             <summary>
+            Soap实例
+            通过这个实例来实现soap的编程与开发
+             </summary>
+        </member>
+        <member name="F:RobotKit.SoapInstance.SoapRead">
+             <summary>
+            进行读操作
+             </summary>
+        </member>
+        <member name="F:RobotKit.SoapInstance.SoapWrite">
+            <summary>
+            进行写操作
+            </summary>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.SoapServerVersion">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.SoapServerVersion.version">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.x">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.y">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.z">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.rx">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.ry">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.CartesianPos.rz">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.Robot">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.kinematic">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.arm">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.tuning">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.mountType">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.lengthAxis3">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Robot.diameterAxis3">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic.KINEMATICINVALID">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic.KINEMATICANTHROPOMORPH6">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic.KINEMATICANTHROPOMORPH5">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic.KINEMATICSCARA">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.Kinematic.KINEMATICEISENMANN">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.MountType">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.MountType.MOUNTTYPEINVALID">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.MountType.MOUNTTYPEFLOOR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.MountType.MOUNTTYPECEILING">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.MountType.MOUNTTYPEWALL">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3.LENGTHAXIS3INVALID">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3.LENGTHAXIS3L100">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3.LENGTHAXIS3L200">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3.LENGTHAXIS3L400">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.LengthAxis3.LENGTHAXIS3L600">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.DiameterAxis3">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.DiameterAxis3.DIAMETERAXIS3INVALID">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.DiameterAxis3.DIAMETERAXIS3D20">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV0.DiameterAxis3.DIAMETERAXIS3D25">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.Parameter">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Parameter.key">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Parameter.name">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Parameter.value">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV0.Version">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Version.name">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV0.Version.version">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV1.VALApplication">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV1.VALApplication.name">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV1.VALApplication.loaded">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV1.JointRange">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV1.JointRange.min">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV1.JointRange.max">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapBreakpoint">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapBreakpoint.programLine">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapProgramLine">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapProgramLine.appName">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapProgramLine.pgmName">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapProgramLine.lineNumber">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapProgramLine.lineContent">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters.theta">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters.d">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters.a">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters.alpha">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapDhParameters.beta">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoUnlockResponse">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoUnlockResponse.response">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoUnlockResponse.state">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoResponse">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoResponse.success">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoResponse.found">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.state">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.locked">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.simulated">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.value">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.description">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoState.attrib">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoEnumState">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoEnumState.IODEFINED">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoEnumState.IOUNDEFINED">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoEnumState.IOINVALIDNAME">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoAttrib">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalIoAttrib.Item">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalAioAttrib">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalAioAttrib.coefA">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalAioAttrib.coefB">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalDioAttrib">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapPhysicalDioAttrib.inverted">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapData">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapData.appName">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapData.dataName">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapData.dataIndex">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.MimeData">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.MimeData.data">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.MimeData.contentType">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapInstruction">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapInstruction.programLine">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapStackFrameAbstract">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapStackFrameAbstract.currentInstruction">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.name">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.state">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.priority">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.createdBy">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.runtimeError">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.runtimeErrorDescription">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTask.programLine">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState.TASKSTATEIDLE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState.TASKSTATETRANSITION">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState.TASKSTATERUNNING">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState.TASKSTATESTEPPING">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskState.TASKSTATESTOPPED">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.BreakpointsResponse">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.BreakpointsResponse.breakpointIndex">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV2.BreakpointsResponse.errorCode">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.UNKNOWNCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDSESSIONIDCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDROBOTIDCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.READACCESSERRORCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.WRITEACCESSERRORCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.SETPOSNOTSIMULCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.SETPOSPOWERONCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.FILENOTFOUNDCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDCONFIGCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDNUMBEROFAXISCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDMOTDESCCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.CLIENTALREADYCONNECTED">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.CLIENTCOMMUNICATIONERROR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.APPLICATIONNOTFOUND">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.PROGRAMNOTFOUND">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.TASKNOTFOUND">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.STACKFRAMENOTFOUND">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.TASKALREADYLOCKED">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDSOAPHANDLER">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.INVALIDSOAPHEADER">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.PROGRAMLINENOTFOUND">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.MISMATCHEDCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.IOWRITEACCESSERRORCODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.IOWRITEACCESSERRORWORKINGMODE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.ServerExceptionCode.IOWRITEACCESSERRORVALIDATION">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskStep">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskStep.TASKSTEPINTO">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskStep.TASKSTEPOVER">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.SoapTaskStep.TASKSTEPOUT">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.execVal3ReturnCode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.execVal3ReturnCode.EXVNOERROR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.execVal3ReturnCode.EXVCOMPILATIONERROR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.execVal3ReturnCode.EXVRUNTIMEERROR">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLINOERROR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLIPROGRAMINEDITION">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLICOMPILATIONERROR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLIINSTRUCTIONBUSY">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLIINSTRUCTIONCONTROL">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV2.replaceLineReturnCode.RLIUNKNOWRETCODE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.Frame">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.nx">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.ny">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.nz">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.ox">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.oy">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.oz">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.ax">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.ay">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.az">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.px">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.py">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Frame.pz">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.RobotPos">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.RobotPos.settled">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.RobotPos.joint">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.RobotPos.position">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.RobotPos.config">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.Config">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.Config.Item">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.AnthroConfig">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.AnthroConfig.shoulder">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.AnthroConfig.elbow">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.AnthroConfig.wrist">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.ShoulderConfig">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ShoulderConfig.SSAME">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ShoulderConfig.LEFTY">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ShoulderConfig.RIGHTY">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ShoulderConfig.SFREE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.PositiveNegativeConfig">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PositiveNegativeConfig.PNSAME">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PositiveNegativeConfig.POSITIVE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PositiveNegativeConfig.NEGATIVE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PositiveNegativeConfig.PNFREE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.ScaraConfig">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.ScaraConfig.shoulder">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.VrbxConfig">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.VrbxConfig.jnt1">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.VrbxConfig.jnt3">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.VrbxConfig.jnt5">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.AboveBelowConfig">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.AboveBelowConfig.ABSAME">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.AboveBelowConfig.ABOVE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.AboveBelowConfig.BELOW">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.AboveBelowConfig.ABFREE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.tool">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.frame">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.absRel">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.config">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.blendType">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.distBlendPrev">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.distBlendNext">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.vel">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.acc">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.dec">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.transVel">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.rotVel">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.MotionDesc.freq">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.MoveType">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MoveType.ABSOLUTEMOVE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MoveType.RELATIVEMOVE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.BlendType">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.BlendType.BLENDOFF">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.BlendType.BLENDJOINT">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.BlendType.BLENDCART">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.JointRange">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.JointRange.min">
+            <remarks/>
+        </member>
+        <member name="P:Staubli.Robotics.Soap.Proxies.ServerV3.JointRange.max">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.REVERSEOK">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.NOCONVERGENCE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.OUTOFJNTRANGE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.OUTOFWORKSPACE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.INVALIDCONFIG">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.INVALIDORIENTATION">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.UNSUPPORTEDKINEMATICS">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.UNCONSTRAINTFRAME">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.ReversingResult.INVALIDERRORCODE">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode.SCSV3MOTNOERR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode.SCSV3MOTNOTREADY">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode.SCSV3MOTERRPARAM">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode.SCSV3MOTERRMISUSE">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.MotionReturnCode.SCSV3MOTERRUNEXPECTED">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.SchedulingMode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.SchedulingMode.SCHEDULINGINTERNAL">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.SchedulingMode.SCHEDULINGEXTERNAL">
+            <remarks/>
+        </member>
+        <member name="T:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode.POWERNOERR">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode.POWERCHANGEWHILEROBOTNOTSTOPPED">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode.POWERENABLETIMEOUT">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode.POWERDISABLETIMEOUT">
+            <remarks/>
+        </member>
+        <member name="F:Staubli.Robotics.Soap.Proxies.ServerV3.PowerReturnCode.POWERCHANGEONLYINREMOTEMODE">
+            <remarks/>
+        </member>
+    </members>
+</doc>
