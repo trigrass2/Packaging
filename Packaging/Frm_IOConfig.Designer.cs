@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CB_RobotCount = new System.Windows.Forms.ComboBox();
+            this.CB_RobotIndex = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LL_Task = new System.Windows.Forms.Label();
             this.GC_Modbus = new DevExpress.XtraGrid.GridControl();
@@ -37,20 +37,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.gv)).BeginInit();
             this.SuspendLayout();
             // 
-            // CB_RobotCount
+            // CB_RobotIndex
             // 
-            this.CB_RobotCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_RobotCount.FormattingEnabled = true;
-            this.CB_RobotCount.Items.AddRange(new object[] {
+            this.CB_RobotIndex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_RobotIndex.FormattingEnabled = true;
+            this.CB_RobotIndex.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4"});
-            this.CB_RobotCount.Location = new System.Drawing.Point(108, 17);
-            this.CB_RobotCount.Name = "CB_RobotCount";
-            this.CB_RobotCount.Size = new System.Drawing.Size(121, 21);
-            this.CB_RobotCount.TabIndex = 9;
-            this.CB_RobotCount.SelectedIndexChanged += new System.EventHandler(this.CB_RobotCount_SelectedIndexChanged);
+            this.CB_RobotIndex.Location = new System.Drawing.Point(108, 17);
+            this.CB_RobotIndex.Name = "CB_RobotIndex";
+            this.CB_RobotIndex.Size = new System.Drawing.Size(121, 21);
+            this.CB_RobotIndex.TabIndex = 9;
+            this.CB_RobotIndex.SelectedIndexChanged += new System.EventHandler(this.CB_RobotCount_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -108,7 +108,7 @@
             this.ClientSize = new System.Drawing.Size(1027, 562);
             this.Controls.Add(this.GC_Modbus);
             this.Controls.Add(this.LL_Task);
-            this.Controls.Add(this.CB_RobotCount);
+            this.Controls.Add(this.CB_RobotIndex);
             this.Controls.Add(this.label1);
             this.Name = "Frm_IOConfig";
             this.Text = "Frm_IOConfig";
@@ -121,7 +121,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox CB_RobotCount;
+        private System.Windows.Forms.ComboBox CB_RobotIndex;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LL_Task;
         public DevExpress.XtraGrid.GridControl GC_Modbus;

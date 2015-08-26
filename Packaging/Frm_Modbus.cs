@@ -13,6 +13,7 @@ namespace Packaging
         public Frm_Modbus()
         {
             InitializeComponent();
+
         }
 
         private void Frm_Modbus_Load(object sender, EventArgs e)

@@ -17,6 +17,8 @@ namespace Packaging
         public Frm_IOConfig()
         {
             InitializeComponent();
+            CB_RobotIndex.Items.Clear();
+            CB_RobotIndex.Items.AddRange(TxtData.RobotIndex);
         }
 
         private void CB_RobotCount_SelectedIndexChanged(object sender, EventArgs e)
@@ -27,12 +29,10 @@ namespace Packaging
             //   GC_Modbus.
             if (gv.RowCount > 12)
             
-            
             {
                 //gv.Columns.Remove(gv.Columns["INDEX"]);
                 gv.Columns.Remove(gv.Columns["编号"]);
-                gv.Columns.Remove(gv.Columns["ID"]);
-               // gv.Columns.Remove(gv.Columns["BP1"]);
+                gv.Columns.Remove(gv.Columns["ID"]);// gv.Columns.Remove(gv.Columns["BP1"]);
                 gv.Columns.Remove(gv.Columns["BP2"]);
                 gv.Columns.Remove(gv.Columns["BP3"]);
                 gv.Columns.Remove(gv.Columns["BP4"]);
@@ -48,7 +48,7 @@ namespace Packaging
 
                 for (int i=0;i<9;i++)
                 {
-                    if (i == CB_RobotCount.SelectedIndex)
+                    if (i == CB_RobotIndex.SelectedIndex)
                     {
                         gv.Columns["REMARK" + i.ToString()].Caption = "备注";
 
@@ -72,7 +72,7 @@ namespace Packaging
             //if (gv.GetFocusedRowCellDisplayText())
             //{
             //}
-            Edit_IOMess frm = new Edit_IOMess(gv.GetSelectedRows()[0] - 1,CB_RobotCount.SelectedIndex);
+            Edit_IOMess frm = new Edit_IOMess(gv.GetSelectedRows()[0] - 1,CB_RobotIndex.SelectedIndex);
             frm.ShowDialog();
            // Frm_Modbus_Load(this, null);
             CB_RobotCount_SelectedIndexChanged(this,null);
@@ -95,7 +95,7 @@ namespace Packaging
             }
 
 
-
+                        
 
 
         }

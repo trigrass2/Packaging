@@ -8,6 +8,27 @@ namespace Packaging
 {
     class TxtData
     {
+
+
+        /// <summary>
+        /// 为系统建立4个机器人配置信息
+        /// </summary>
+        public static SysConfig[] RobotCfg = new SysConfig[4];
+
+        /// <summary>
+        /// 绑定当前机器人序号
+        /// </summary>
+        public static string[] RobotIndex = new string[] { "1", "2", "3", "4" };
+
+
+        /// <summary>
+        /// 每个界面的机械人序列号
+        /// </summary>
+        public static string[] ScreenRobotIndex = new string[100];
+
+
+
+
         /// <summary>
         /// 系统配置中每个机器人的配置信息
         /// </summary>
@@ -20,24 +41,21 @@ namespace Packaging
             public string Cs8cProg;
 
 
-        }
-        /// <summary>
-        /// 为系统建立4个机器人配置信息
-        /// </summary>
-        public static SysConfig[] RobotCfg = new SysConfig[4];
-
-
-        public struct IOInfor
-        {
-
-            public bool IsAnalog;
-            public bool IsOutPut;
-            public string Message;
-            public bool Booldata;
-            public int Intdata;
-
 
         }
+
+
+        //public struct IOInfor
+        //{
+                        
+        //    public bool IsAnalog;
+        //    public bool IsOutPut;
+        //    public string Message;
+        //    public bool Booldata;
+        //    public int Intdata;
+
+
+        //}
 
 
 
