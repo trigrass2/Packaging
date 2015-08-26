@@ -28,7 +28,6 @@ D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PalletPara.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_ResetProg.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PCAlarm.resources
-D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PickPlace.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_ProductControl.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PauseProg.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_RobotDemo.resources
@@ -36,7 +35,6 @@ D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_Stat.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_StopProg.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_SysConfig.resources
-D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_TrackConfig.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_TrackFrame.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_User.resources
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_Wait.resources
@@ -116,3 +114,6 @@ D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\bin\x86\Release\ja\DevExpress
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\bin\x86\Release\ru\DevExpress.Data.v12.1.resources.dll
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packing.exe
 D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packing.pdb
+D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_ConveyorConfig.resources
+D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PickPlacePoint.resources
+D:\Yanjie\SourceCode\Packaging\Packaging\Packaging\obj\x86\Release\Packaging.Frm_PickPlaceAction.resources

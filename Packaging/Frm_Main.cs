@@ -793,7 +793,7 @@ namespace Packaging
         private void BI_TrackConfig_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             SetTitle(sender);
-            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_TrackConfig());
+            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_ConveyorConfig());
         }
 
         //比例因子标定
@@ -823,7 +823,7 @@ namespace Packaging
         private void BI_PickPlace_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             SetTitle(sender);
-            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_PickPlace());
+            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_PickPlacePoint());
         }
 
         //复位程序配置
@@ -939,6 +939,12 @@ namespace Packaging
             SetTitle(sender);
 
 
+        }
+
+        private void BI_PickPlaceAction_LinkClicked(object sender, NavBarLinkEventArgs e)
+        {
+            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_PickPlaceAction());
+            SetTitle(sender);
         }
 
 

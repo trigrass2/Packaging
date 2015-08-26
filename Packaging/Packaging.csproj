@@ -323,11 +323,11 @@
     <Compile Include="Frm_Main.Designer.cs">
       <DependentUpon>Frm_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm_PickPlace.cs">
+    <Compile Include="Frm_PickPlacePoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_PickPlace.Designer.cs">
-      <DependentUpon>Frm_PickPlace.cs</DependentUpon>
+    <Compile Include="Frm_PickPlacePoint.Designer.cs">
+      <DependentUpon>Frm_PickPlacePoint.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_ProductControl.cs">
       <SubType>Form</SubType>
@@ -371,11 +371,11 @@
     <Compile Include="Frm_SysConfig.Designer.cs">
       <DependentUpon>Frm_SysConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm_TrackConfig.cs">
+    <Compile Include="Frm_ConveyorConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm_TrackConfig.Designer.cs">
-      <DependentUpon>Frm_TrackConfig.cs</DependentUpon>
+    <Compile Include="Frm_ConveyorConfig.Designer.cs">
+      <DependentUpon>Frm_ConveyorConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_TrackFrame.cs">
       <SubType>Form</SubType>
@@ -505,8 +505,8 @@
     <EmbeddedResource Include="Frm_PCAlarm.resx">
       <DependentUpon>Frm_PCAlarm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_PickPlace.resx">
-      <DependentUpon>Frm_PickPlace.cs</DependentUpon>
+    <EmbeddedResource Include="Frm_PickPlacePoint.resx">
+      <DependentUpon>Frm_PickPlacePoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_ProductControl.resx">
       <DependentUpon>Frm_ProductControl.cs</DependentUpon>
@@ -529,8 +529,8 @@
     <EmbeddedResource Include="Frm_SysConfig.resx">
       <DependentUpon>Frm_SysConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm_TrackConfig.resx">
-      <DependentUpon>Frm_TrackConfig.cs</DependentUpon>
+    <EmbeddedResource Include="Frm_ConveyorConfig.resx">
+      <DependentUpon>Frm_ConveyorConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_TrackFrame.resx">
       <DependentUpon>Frm_TrackFrame.cs</DependentUpon>
@@ -573,6 +573,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Frm_Tool.resx">
       <DependentUpon>Frm_Tool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_PickPlaceAction.resx">
+      <DependentUpon>Frm_PickPlaceAction.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -626,6 +629,12 @@
     </Compile>
     <Compile Include="Frm_Tool.Designer.cs">
       <DependentUpon>Frm_Tool.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_PickPlaceAction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_PickPlaceAction.Designer.cs">
+      <DependentUpon>Frm_PickPlaceAction.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

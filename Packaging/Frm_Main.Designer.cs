@@ -178,6 +178,7 @@
             this.BI_ProductImfor = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_Sys = new DevExpress.XtraNavBar.NavBarItem();
             this.SCC_Main = new DevExpress.XtraEditors.SplitContainerControl();
+            this.BI_PickPlaceAction = new DevExpress.XtraNavBar.NavBarItem();
             ((System.ComponentModel.ISupportInitialize)(this.RC_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
@@ -1121,8 +1122,8 @@
             this.AppParaGroup,
             this.ProgGroup,
             this.SaftyParaGroup,
-            this.AdjustGroup,
             this.DemoGroup,
+            this.AdjustGroup,
             this.MonitorGroup,
             this.ProductGroup,
             this.StatGroup,
@@ -1158,7 +1159,8 @@
             this.BI_Pause,
             this.BI_StopProg,
             this.BI_EMOProg,
-            this.BI_ToolConfig});
+            this.BI_ToolConfig,
+            this.BI_PickPlaceAction});
             this.ListGroup_Main.Location = new System.Drawing.Point(0, 0);
             this.ListGroup_Main.Name = "ListGroup_Main";
             this.ListGroup_Main.OptionsNavPane.ExpandedWidth = 165;
@@ -1199,6 +1201,7 @@
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_EncodeConfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_TrackFrame),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_VisionFrame),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.BI_PickPlaceAction),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_PickPlace),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_Pallet)});
             this.AppParaGroup.Name = "AppParaGroup";
@@ -1469,6 +1472,12 @@
             this.SCC_Main.SplitterPosition = 165;
             this.SCC_Main.TabIndex = 0;
             // 
+            // BI_PickPlaceAction
+            // 
+            this.BI_PickPlaceAction.Caption = "拾放动作设置";
+            this.BI_PickPlaceAction.Name = "BI_PickPlaceAction";
+            this.BI_PickPlaceAction.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_PickPlaceAction_LinkClicked);
+            // 
             // Frm_Main
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -1681,6 +1690,7 @@
         private DevExpress.XtraNavBar.NavBarItem BI_EMOProg;
         private DevExpress.XtraNavBar.NavBarGroup ProgGroup;
         private DevExpress.XtraNavBar.NavBarItem BI_ToolConfig;
+        private DevExpress.XtraNavBar.NavBarItem BI_PickPlaceAction;
        // private DevExpress.XtraEditors.LabelControl LL_MainTitle;
 
     }
