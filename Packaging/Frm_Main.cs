@@ -932,6 +932,15 @@ namespace Packaging
             SetTitle(sender);
         }
 
+        private void BI_ToolConfig_LinkClicked(object sender, NavBarLinkEventArgs e)
+        {
+
+            SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_Tool());
+            SetTitle(sender);
+
+
+        }
+
 
                 
 

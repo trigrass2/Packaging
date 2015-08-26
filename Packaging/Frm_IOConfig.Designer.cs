@@ -46,7 +46,7 @@
             "2",
             "3",
             "4"});
-            this.CB_RobotIndex.Location = new System.Drawing.Point(108, 17);
+            this.CB_RobotIndex.Location = new System.Drawing.Point(94, 530);
             this.CB_RobotIndex.Name = "CB_RobotIndex";
             this.CB_RobotIndex.Size = new System.Drawing.Size(121, 21);
             this.CB_RobotIndex.TabIndex = 9;
@@ -56,7 +56,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(25, 21);
+            this.label1.Location = new System.Drawing.Point(11, 534);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 8;
@@ -65,7 +65,7 @@
             // LL_Task
             // 
             this.LL_Task.AutoSize = true;
-            this.LL_Task.Location = new System.Drawing.Point(304, 21);
+            this.LL_Task.Location = new System.Drawing.Point(290, 534);
             this.LL_Task.Name = "LL_Task";
             this.LL_Task.Size = new System.Drawing.Size(67, 13);
             this.LL_Task.TabIndex = 10;
@@ -73,11 +73,11 @@
             // 
             // GC_Modbus
             // 
-            this.GC_Modbus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.GC_Modbus.Location = new System.Drawing.Point(0, 55);
+            this.GC_Modbus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GC_Modbus.Location = new System.Drawing.Point(0, 0);
             this.GC_Modbus.MainView = this.gv;
             this.GC_Modbus.Name = "GC_Modbus";
-            this.GC_Modbus.Size = new System.Drawing.Size(1027, 507);
+            this.GC_Modbus.Size = new System.Drawing.Size(1027, 524);
             this.GC_Modbus.TabIndex = 11;
             this.GC_Modbus.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv});

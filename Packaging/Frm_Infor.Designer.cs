@@ -35,7 +35,7 @@
             // PE_Main
             // 
             this.PE_Main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PE_Main.EditValue = global::Packaging.Properties.Resources._2014_03_12_101049;
+            this.PE_Main.EditValue = global::Packaging.Properties.Resources._101049;
             this.PE_Main.Location = new System.Drawing.Point(0, 0);
             this.PE_Main.Name = "PE_Main";
             this.PE_Main.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;

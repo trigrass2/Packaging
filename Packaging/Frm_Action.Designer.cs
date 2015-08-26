@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.LL_Task = new System.Windows.Forms.Label();
-            this.CB_RobotCount = new System.Windows.Forms.ComboBox();
+            this.CB_RobotIndex = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.GC_Modbus = new DevExpress.XtraGrid.GridControl();
             this.gv = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -40,31 +40,32 @@
             // LL_Task
             // 
             this.LL_Task.AutoSize = true;
-            this.LL_Task.Location = new System.Drawing.Point(300, 20);
+            this.LL_Task.Location = new System.Drawing.Point(252, 526);
             this.LL_Task.Name = "LL_Task";
             this.LL_Task.Size = new System.Drawing.Size(67, 13);
             this.LL_Task.TabIndex = 13;
             this.LL_Task.Text = "当前任务：";
             // 
-            // CB_RobotCount
+            // CB_RobotIndex
             // 
-            this.CB_RobotCount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_RobotCount.FormattingEnabled = true;
-            this.CB_RobotCount.Items.AddRange(new object[] {
+            this.CB_RobotIndex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_RobotIndex.FormattingEnabled = true;
+            this.CB_RobotIndex.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4"});
-            this.CB_RobotCount.Location = new System.Drawing.Point(104, 16);
-            this.CB_RobotCount.Name = "CB_RobotCount";
-            this.CB_RobotCount.Size = new System.Drawing.Size(121, 21);
-            this.CB_RobotCount.TabIndex = 12;
+            this.CB_RobotIndex.Location = new System.Drawing.Point(95, 523);
+            this.CB_RobotIndex.Name = "CB_RobotIndex";
+            this.CB_RobotIndex.Size = new System.Drawing.Size(121, 21);
+            this.CB_RobotIndex.TabIndex = 12;
+            this.CB_RobotIndex.SelectedIndexChanged += new System.EventHandler(this.CB_RobotIndex_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(21, 20);
+            this.label1.Location = new System.Drawing.Point(12, 527);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 11;
@@ -72,10 +73,11 @@
             // 
             // GC_Modbus
             // 
-            this.GC_Modbus.Location = new System.Drawing.Point(24, 55);
+            this.GC_Modbus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.GC_Modbus.Location = new System.Drawing.Point(0, 0);
             this.GC_Modbus.MainView = this.gv;
             this.GC_Modbus.Name = "GC_Modbus";
-            this.GC_Modbus.Size = new System.Drawing.Size(565, 465);
+            this.GC_Modbus.Size = new System.Drawing.Size(1027, 497);
             this.GC_Modbus.TabIndex = 14;
             this.GC_Modbus.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv});
@@ -104,7 +106,7 @@
             this.ClientSize = new System.Drawing.Size(1027, 562);
             this.Controls.Add(this.GC_Modbus);
             this.Controls.Add(this.LL_Task);
-            this.Controls.Add(this.CB_RobotCount);
+            this.Controls.Add(this.CB_RobotIndex);
             this.Controls.Add(this.label1);
             this.Name = "Frm_Action";
             ((System.ComponentModel.ISupportInitialize)(this.GC_Modbus)).EndInit();
@@ -117,7 +119,7 @@
         #endregion
 
         private System.Windows.Forms.Label LL_Task;
-        private System.Windows.Forms.ComboBox CB_RobotCount;
+        private System.Windows.Forms.ComboBox CB_RobotIndex;
         private System.Windows.Forms.Label label1;
         public DevExpress.XtraGrid.GridControl GC_Modbus;
         public DevExpress.XtraGrid.Views.Grid.GridView gv;

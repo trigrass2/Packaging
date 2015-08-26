@@ -571,6 +571,9 @@
     <EmbeddedResource Include="Frm_ProductProg.resx">
       <DependentUpon>Frm_ProductProg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Tool.resx">
+      <DependentUpon>Frm_Tool.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -617,6 +620,12 @@
     </Compile>
     <Compile Include="Frm_ProductProg.Designer.cs">
       <DependentUpon>Frm_ProductProg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_Tool.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_Tool.Designer.cs">
+      <DependentUpon>Frm_Tool.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +711,7 @@
     <None Include="Resources\2015-05-13_145919.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\2015-05-13_145551.png" />
     <Content Include="TP80.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

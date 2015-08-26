@@ -271,7 +271,7 @@
             // 
             // Pic_Show
             // 
-            this.Pic_Show.Image = global::Packaging.Properties.Resources._2015_05_13_145919;
+            this.Pic_Show.Image = global::Packaging.Properties.Resources._145919;
             this.Pic_Show.Location = new System.Drawing.Point(600, 0);
             this.Pic_Show.Name = "Pic_Show";
             this.Pic_Show.Size = new System.Drawing.Size(425, 292);

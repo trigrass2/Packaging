@@ -28,6 +28,33 @@ namespace Packaging
 
 
 
+        public static string[] DIRemark = new string[]
+        {
+            "机器人复位","机器人启动","机器人暂停","机器人停止","货盘1清零","货盘2清零","货盘3清零","货盘4清零"
+        
+        };
+        public static string[] DORemark = new string[]
+        {
+            "传送带1触发", "传送带2触发", "传送带3触发", "传送带4触发", "传送带1启停", "传送带2启停", "传送带3启停", "传送带4启停",
+            "机器人报警","机器人已停止","机器人已复位","机器人已启动","机器人已暂停"     
+        
+        };
+        public static string[] AIRemark = new string[]
+        {
+           // "机器人复位", "机器人启动", "机器人暂停", "机器人停止", "货盘1清零", "货盘2清零", "货盘3清零", "货盘4清零"
+                   
+        
+        };
+
+        public static string[] AORemark = new string[]
+        {
+            "传送带1调速", "传送带2调速", "传送带3调速", "传送带4调速"
+
+        };
+
+
+                
+
 
         /// <summary>
         /// 系统配置中每个机器人的配置信息
@@ -43,20 +70,6 @@ namespace Packaging
 
 
         }
-
-
-        //public struct IOInfor
-        //{
-                        
-        //    public bool IsAnalog;
-        //    public bool IsOutPut;
-        //    public string Message;
-        //    public bool Booldata;
-        //    public int Intdata;
-
-
-        //}
-
 
 
 
@@ -285,23 +298,7 @@ namespace Packaging
 
 
 
-        public struct RobotGroup
-        {
 
-
-            public static string[] IpAddress = new string[] { "192.168.0.254", "192.168.0.254", "192.168.0.254", "192.168.0.254", "192.168.0.254", 
-            "192.168.0.254","192.168.0.254","192.168.0.254","192.168.0.254","192.168.0.254"};
-            public static string[] Remark = new string[] { "激光切割机器人", "激光切割机器人", "激光切割机器人", "激光切割机器人", "激光切割机器人", 
-            "激光切割机器人","激光切割机器人","激光切割机器人","激光切割机器人","激光切割机器人"};
-
-            public static string[] Status = new string[] { "请小心，运行中", "请小心，运行中", "请小心，运行中", "请小心，运行中", "请小心，运行中",
-            "请小心，运行中","请小心，运行中","请小心，运行中","请小心，运行中","请小心，运行中",};
-            public static string[] Type = new string[] { "倒挂RX160L", "倒挂RX160L", "倒挂RX160L", "倒挂RX160L", "倒挂RX160L", 
-            "倒挂RX160L","倒挂RX160L","倒挂RX160L","倒挂RX160L","倒挂RX160L"};
-
-
-
-        }
 
 
     }

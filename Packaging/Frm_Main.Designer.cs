@@ -141,6 +141,7 @@
             this.AppParaGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.BI_IOconfig = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_ActionConfig = new DevExpress.XtraNavBar.NavBarItem();
+            this.BI_ToolConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_TrackConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_EncodeConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_TrackFrame = new DevExpress.XtraNavBar.NavBarItem();
@@ -1156,7 +1157,8 @@
             this.BI_ProductProg,
             this.BI_Pause,
             this.BI_StopProg,
-            this.BI_EMOProg});
+            this.BI_EMOProg,
+            this.BI_ToolConfig});
             this.ListGroup_Main.Location = new System.Drawing.Point(0, 0);
             this.ListGroup_Main.Name = "ListGroup_Main";
             this.ListGroup_Main.OptionsNavPane.ExpandedWidth = 165;
@@ -1192,6 +1194,7 @@
             this.AppParaGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_IOconfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_ActionConfig),
+            new DevExpress.XtraNavBar.NavBarItemLink(this.BI_ToolConfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_TrackConfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_EncodeConfig),
             new DevExpress.XtraNavBar.NavBarItemLink(this.BI_TrackFrame),
@@ -1208,9 +1211,15 @@
             // 
             // BI_ActionConfig
             // 
-            this.BI_ActionConfig.Caption = "工具,动作配置";
+            this.BI_ActionConfig.Caption = "动作配置";
             this.BI_ActionConfig.Name = "BI_ActionConfig";
             this.BI_ActionConfig.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_ActionConfig_LinkClicked);
+            // 
+            // BI_ToolConfig
+            // 
+            this.BI_ToolConfig.Caption = "工具配置";
+            this.BI_ToolConfig.Name = "BI_ToolConfig";
+            this.BI_ToolConfig.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_ToolConfig_LinkClicked);
             // 
             // BI_TrackConfig
             // 
@@ -1671,6 +1680,7 @@
         private DevExpress.XtraNavBar.NavBarItem BI_StopProg;
         private DevExpress.XtraNavBar.NavBarItem BI_EMOProg;
         private DevExpress.XtraNavBar.NavBarGroup ProgGroup;
+        private DevExpress.XtraNavBar.NavBarItem BI_ToolConfig;
        // private DevExpress.XtraEditors.LabelControl LL_MainTitle;
 
     }
