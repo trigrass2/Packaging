@@ -146,6 +146,7 @@
             this.BI_EncodeConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_TrackFrame = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_VisionFrame = new DevExpress.XtraNavBar.NavBarItem();
+            this.BI_PickPlaceAction = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_PickPlace = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_Pallet = new DevExpress.XtraNavBar.NavBarItem();
             this.ProgGroup = new DevExpress.XtraNavBar.NavBarGroup();
@@ -156,10 +157,10 @@
             this.BI_EMOProg = new DevExpress.XtraNavBar.NavBarItem();
             this.SaftyParaGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.BI_SafeConfig = new DevExpress.XtraNavBar.NavBarItem();
-            this.AdjustGroup = new DevExpress.XtraNavBar.NavBarGroup();
-            this.BI_OnlineConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.DemoGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.BI_RotDemo = new DevExpress.XtraNavBar.NavBarItem();
+            this.AdjustGroup = new DevExpress.XtraNavBar.NavBarGroup();
+            this.BI_OnlineConfig = new DevExpress.XtraNavBar.NavBarItem();
             this.MonitorGroup = new DevExpress.XtraNavBar.NavBarGroup();
             this.BI_OnlineMonitor = new DevExpress.XtraNavBar.NavBarItem();
             this.ProductGroup = new DevExpress.XtraNavBar.NavBarGroup();
@@ -178,7 +179,6 @@
             this.BI_ProductImfor = new DevExpress.XtraNavBar.NavBarItem();
             this.BI_Sys = new DevExpress.XtraNavBar.NavBarItem();
             this.SCC_Main = new DevExpress.XtraEditors.SplitContainerControl();
-            this.BI_PickPlaceAction = new DevExpress.XtraNavBar.NavBarItem();
             ((System.ComponentModel.ISupportInitialize)(this.RC_Main)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit3)).BeginInit();
@@ -1248,6 +1248,12 @@
             this.BI_VisionFrame.Name = "BI_VisionFrame";
             this.BI_VisionFrame.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_VisionFrame_LinkClicked);
             // 
+            // BI_PickPlaceAction
+            // 
+            this.BI_PickPlaceAction.Caption = "拾放动作设置";
+            this.BI_PickPlaceAction.Name = "BI_PickPlaceAction";
+            this.BI_PickPlaceAction.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_PickPlaceAction_LinkClicked);
+            // 
             // BI_PickPlace
             // 
             this.BI_PickPlace.Caption = "拾放点设置";
@@ -1316,6 +1322,20 @@
             this.BI_SafeConfig.Name = "BI_SafeConfig";
             this.BI_SafeConfig.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_SafeConfig_LinkClicked);
             // 
+            // DemoGroup
+            // 
+            this.DemoGroup.Caption = "仿真模拟";
+            this.DemoGroup.Expanded = true;
+            this.DemoGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
+            new DevExpress.XtraNavBar.NavBarItemLink(this.BI_RotDemo)});
+            this.DemoGroup.Name = "DemoGroup";
+            // 
+            // BI_RotDemo
+            // 
+            this.BI_RotDemo.Caption = "仿真模拟";
+            this.BI_RotDemo.Name = "BI_RotDemo";
+            this.BI_RotDemo.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_RotDemo_LinkClicked);
+            // 
             // AdjustGroup
             // 
             this.AdjustGroup.Caption = "在线调整";
@@ -1330,20 +1350,6 @@
             this.BI_OnlineConfig.Name = "BI_OnlineConfig";
             this.BI_OnlineConfig.SmallImageIndex = 4;
             this.BI_OnlineConfig.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_OnlineConfig_LinkClicked);
-            // 
-            // DemoGroup
-            // 
-            this.DemoGroup.Caption = "仿真模拟";
-            this.DemoGroup.Expanded = true;
-            this.DemoGroup.ItemLinks.AddRange(new DevExpress.XtraNavBar.NavBarItemLink[] {
-            new DevExpress.XtraNavBar.NavBarItemLink(this.BI_RotDemo)});
-            this.DemoGroup.Name = "DemoGroup";
-            // 
-            // BI_RotDemo
-            // 
-            this.BI_RotDemo.Caption = "仿真模拟";
-            this.BI_RotDemo.Name = "BI_RotDemo";
-            this.BI_RotDemo.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_RotDemo_LinkClicked);
             // 
             // MonitorGroup
             // 
@@ -1471,12 +1477,6 @@
             this.SCC_Main.Size = new System.Drawing.Size(1100, 525);
             this.SCC_Main.SplitterPosition = 165;
             this.SCC_Main.TabIndex = 0;
-            // 
-            // BI_PickPlaceAction
-            // 
-            this.BI_PickPlaceAction.Caption = "拾放动作设置";
-            this.BI_PickPlaceAction.Name = "BI_PickPlaceAction";
-            this.BI_PickPlaceAction.LinkClicked += new DevExpress.XtraNavBar.NavBarLinkEventHandler(this.BI_PickPlaceAction_LinkClicked);
             // 
             // Frm_Main
             // 
