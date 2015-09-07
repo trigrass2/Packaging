@@ -47,6 +47,9 @@
             this.CB_RobotCount = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BT_Save = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit4.Properties)).BeginInit();
@@ -118,6 +121,7 @@
             // 
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Enabled = false;
             this.groupBox2.Location = new System.Drawing.Point(527, 79);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(486, 411);
@@ -145,6 +149,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.CB_TriggerIO);
@@ -259,6 +266,39 @@
             this.BT_Save.Text = "保存";
             this.BT_Save.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(35, 195);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(64, 13);
+            this.label10.TabIndex = 78;
+            this.label10.Text = " 弃件位：  ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBox1.Location = new System.Drawing.Point(155, 225);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 80;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(34, 228);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 13);
+            this.label11.TabIndex = 79;
+            this.label11.Text = "弃件动作：";
+            // 
             // Frm_StopProg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,5 +343,8 @@
         private System.Windows.Forms.ComboBox CB_RobotCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BT_Save;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

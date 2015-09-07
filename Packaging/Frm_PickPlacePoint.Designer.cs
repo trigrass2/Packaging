@@ -39,6 +39,8 @@
             this.CB_Detector = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.spinEdit7 = new DevExpress.XtraEditors.SpinEdit();
             this.label34 = new System.Windows.Forms.Label();
             this.spinEdit22 = new DevExpress.XtraEditors.SpinEdit();
             this.label32 = new System.Windows.Forms.Label();
@@ -56,6 +58,9 @@
             this.comboBox9 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.spinEdit9 = new DevExpress.XtraEditors.SpinEdit();
             this.label21 = new System.Windows.Forms.Label();
             this.spinEdit18 = new DevExpress.XtraEditors.SpinEdit();
             this.label3 = new System.Windows.Forms.Label();
@@ -70,27 +75,27 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.BT_New = new System.Windows.Forms.Button();
             this.BT_Save = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.spinEdit7 = new DevExpress.XtraEditors.SpinEdit();
-            this.label8 = new System.Windows.Forms.Label();
-            this.spinEdit9 = new DevExpress.XtraEditors.SpinEdit();
-            this.label18 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Pic_Show)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit4.Properties)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit7.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit22.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit8.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit6.Properties)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit9.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit18.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit5.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit7.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit9.Properties)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // Pic_Show
@@ -226,6 +231,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "位置微调";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(48, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.TabIndex = 70;
+            this.label2.Text = "ΔRZ:";
+            // 
+            // spinEdit7
+            // 
+            this.spinEdit7.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit7.Location = new System.Drawing.Point(133, 110);
+            this.spinEdit7.Name = "spinEdit7";
+            this.spinEdit7.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit7.Size = new System.Drawing.Size(116, 20);
+            this.spinEdit7.TabIndex = 71;
             // 
             // label34
             // 
@@ -453,7 +482,41 @@
             this.groupBox5.Size = new System.Drawing.Size(307, 233);
             this.groupBox5.TabIndex = 45;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "趋近参数设置";
+            this.groupBox5.Text = "阵列设置";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.Black;
+            this.label18.Location = new System.Drawing.Point(24, 195);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(73, 13);
+            this.label18.TabIndex = 44;
+            this.label18.Text = "P[0,0]位置：";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(20, 167);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 13);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "层高：";
+            // 
+            // spinEdit9
+            // 
+            this.spinEdit9.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.spinEdit9.Location = new System.Drawing.Point(105, 164);
+            this.spinEdit9.Name = "spinEdit9";
+            this.spinEdit9.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.spinEdit9.Size = new System.Drawing.Size(116, 20);
+            this.spinEdit9.TabIndex = 43;
             // 
             // label21
             // 
@@ -577,6 +640,10 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.comboBox1);
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.comboBox2);
+            this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Location = new System.Drawing.Point(309, 251);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(307, 260);
@@ -611,63 +678,59 @@
             this.BT_Save.Text = "保存";
             this.BT_Save.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // comboBox1
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(48, 114);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 13);
-            this.label2.TabIndex = 70;
-            this.label2.Text = "ΔZ:";
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
+            this.comboBox1.Location = new System.Drawing.Point(105, 53);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 57;
             // 
-            // spinEdit7
+            // label11
             // 
-            this.spinEdit7.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.spinEdit7.Location = new System.Drawing.Point(133, 110);
-            this.spinEdit7.Name = "spinEdit7";
-            this.spinEdit7.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit7.Size = new System.Drawing.Size(116, 20);
-            this.spinEdit7.TabIndex = 71;
+            this.label11.AutoSize = true;
+            this.label11.Enabled = false;
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(13, 56);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(59, 13);
+            this.label11.TabIndex = 56;
+            this.label11.Text = "产品类别:";
             // 
-            // label8
+            // comboBox2
             // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(20, 167);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 42;
-            this.label8.Text = "层高：";
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"});
+            this.comboBox2.Location = new System.Drawing.Point(105, 27);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 55;
             // 
-            // spinEdit9
+            // label12
             // 
-            this.spinEdit9.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.spinEdit9.Location = new System.Drawing.Point(105, 164);
-            this.spinEdit9.Name = "spinEdit9";
-            this.spinEdit9.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.spinEdit9.Size = new System.Drawing.Size(116, 20);
-            this.spinEdit9.TabIndex = 43;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(24, 195);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(73, 13);
-            this.label18.TabIndex = 44;
-            this.label18.Text = "P[0,0]位置：";
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Black;
+            this.label12.Location = new System.Drawing.Point(13, 30);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(35, 13);
+            this.label12.TabIndex = 54;
+            this.label12.Text = "姿态:";
             // 
             // Frm_PickPlacePoint
             // 
@@ -698,6 +761,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit4.Properties)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit7.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit22.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit8.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit6.Properties)).EndInit();
@@ -707,13 +771,14 @@
             this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spinEdit9.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit18.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.spinEdit5.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit7.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.spinEdit9.Properties)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -768,5 +833,9 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label8;
         private DevExpress.XtraEditors.SpinEdit spinEdit9;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label12;
     }
 }

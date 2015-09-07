@@ -124,9 +124,10 @@ namespace Packaging
         /// <param name="e"></param>
         private void BI_RobPostion_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
-            if (!TxtData.XMLConfigure.Login||!TxtData.PublicData.ScreenEnable[TxtData.XMLConfigure.PopeDom,0])
-            {
-                return;}
+            //if (!TxtData.XMLConfigure.Login||!TxtData.PublicData.ScreenEnable[TxtData.XMLConfigure.PopeDom,0])
+            //{
+            //    return;
+            //}
 
             SetFrmPanel(this.SCC_ChindMain.Panel2, new Frm_SysConfig());
             SetTitle(sender);

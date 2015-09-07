@@ -47,7 +47,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.spinEdit4 = new DevExpress.XtraEditors.SpinEdit();
             this.label3 = new System.Windows.Forms.Label();
-            this.CE_Server = new System.Windows.Forms.CheckBox();
             this.LL_Task = new System.Windows.Forms.Label();
             this.CB_RobotCount = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -255,18 +254,6 @@
             this.label3.TabIndex = 60;
             this.label3.Text = "回零速度设定";
             // 
-            // CE_Server
-            // 
-            this.CE_Server.AutoSize = true;
-            this.CE_Server.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.CE_Server.Location = new System.Drawing.Point(43, 46);
-            this.CE_Server.Name = "CE_Server";
-            this.CE_Server.Size = new System.Drawing.Size(98, 17);
-            this.CE_Server.TabIndex = 49;
-            this.CE_Server.Text = "启用暂停功能";
-            this.CE_Server.UseVisualStyleBackColor = true;
-            this.CE_Server.CheckedChanged += new System.EventHandler(this.CE_Server_CheckedChanged);
-            // 
             // LL_Task
             // 
             this.LL_Task.AutoSize = true;
@@ -300,7 +287,7 @@
             this.label1.TabIndex = 59;
             this.label1.Text = "当前机器人:";
             // 
-            // Frm_PauseProg
+            // Frm_ResetProg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -310,8 +297,7 @@
             this.Controls.Add(this.LL_Task);
             this.Controls.Add(this.CB_RobotCount);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.CE_Server);
-            this.Name = "Frm_PauseProg";
+            this.Name = "Frm_ResetProg";
             this.Text = "Frm_Pause";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -344,7 +330,6 @@
         private System.Windows.Forms.Label label2;
         private DevExpress.XtraEditors.SpinEdit spinEdit4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox CE_Server;
         private System.Windows.Forms.Label LL_Task;
         private System.Windows.Forms.ComboBox CB_RobotCount;
         private System.Windows.Forms.Label label1;

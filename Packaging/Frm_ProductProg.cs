@@ -20,5 +20,10 @@ namespace Packaging
         {
 
         }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
